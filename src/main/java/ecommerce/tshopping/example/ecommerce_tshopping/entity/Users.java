@@ -1,17 +1,14 @@
 package ecommerce.tshopping.example.ecommerce_tshopping.entity;
 
 import java.time.Instant;
-import java.util.UUID;
+import java.util.*;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
+import jakarta.persistence.*;
 
 @Entity
 @Table(name = "tb_users")
@@ -23,18 +20,6 @@ public class Users {
 
   @Column(name = "name")
   private String name;
-
-  public Users(UUID clientId, String name, String email, String password, String cpf, String cep,
-      Instant createTimestamp, Instant updateTimestamp) {
-    this.clientId = clientId;
-    this.name = name;
-    this.email = email;
-    this.password = password;
-    this.cpf = cpf;
-    this.cep = cep;
-    this.createTimestamp = createTimestamp;
-    this.updateTimestamp = updateTimestamp;
-  }
 
   private String email;
 
@@ -51,6 +36,23 @@ public class Users {
   @Column(name = "updateTimestamp")
   @UpdateTimestamp
   private Instant updateTimestamp;
+
+  @OneToMany(mappedBy = "users", cascade = CascadeType.ALL, orphanRemoval = true)
+  @JsonManagedReference
+  private List<Product> product;
+
+  public Users(UUID clientId, String name, String email, String password, String cpf, String cep,
+      Instant createTimestamp, Instant updateTimestamp, List<Product> product) {
+    this.clientId = clientId;
+    this.name = name;
+    this.email = email;
+    this.password = password;
+    this.cpf = cpf;
+    this.cep = cep;
+    this.createTimestamp = createTimestamp;
+    this.updateTimestamp = updateTimestamp;
+    this.product = product;
+  }
 
   public Users() {
   }
@@ -117,6 +119,14 @@ public class Users {
 
   public void setCep(String cep) {
     this.cep = cep;
+  }
+
+  public List<Product> getProduct() {
+    return product;
+  }
+
+  public void setProduct(List<Product> product) {
+    this.product = product;
   }
 
 }
