@@ -18,6 +18,7 @@ classDiagram
         +product[] products
     }
 
-    user --> cart : "toAdd"
-    cart --> product : "contains"
+    users "1" --> "0..1" cart : "possui"
+    cart --> "0..*" product : "contém"
+
 ```
