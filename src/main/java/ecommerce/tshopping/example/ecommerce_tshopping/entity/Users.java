@@ -24,9 +24,25 @@ public class Users {
   @Column(name = "name")
   private String name;
 
+  public Users(UUID clientId, String name, String email, String password, String cpf, String cep,
+      Instant createTimestamp, Instant updateTimestamp) {
+    this.clientId = clientId;
+    this.name = name;
+    this.email = email;
+    this.password = password;
+    this.cpf = cpf;
+    this.cep = cep;
+    this.createTimestamp = createTimestamp;
+    this.updateTimestamp = updateTimestamp;
+  }
+
   private String email;
 
   private String password;
+
+  private String cpf;
+
+  private String cep;
 
   @Column(name = "createTimestamp")
   @CreationTimestamp
@@ -35,16 +51,6 @@ public class Users {
   @Column(name = "updateTimestamp")
   @UpdateTimestamp
   private Instant updateTimestamp;
-
-  public Users(UUID clientId, String name, String email, String password, Instant createTimestamp,
-      Instant updateTimestamp) {
-    this.clientId = clientId;
-    this.name = name;
-    this.email = email;
-    this.password = password;
-    this.createTimestamp = createTimestamp;
-    this.updateTimestamp = updateTimestamp;
-  }
 
   public Users() {
   }
@@ -95,6 +101,22 @@ public class Users {
 
   public void setUpdateTimestamp(Instant updateTimestamp) {
     this.updateTimestamp = updateTimestamp;
+  }
+
+  public String getCpf() {
+    return cpf;
+  }
+
+  public void setCpf(String cpf) {
+    this.cpf = cpf;
+  }
+
+  public String getCep() {
+    return cep;
+  }
+
+  public void setCep(String cep) {
+    this.cep = cep;
   }
 
 }

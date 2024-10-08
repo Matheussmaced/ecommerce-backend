@@ -33,6 +33,8 @@ public class UsersServiceImpl implements UsersService {
     user.setName(createUsersDTO.name());
     user.setEmail(createUsersDTO.email());
     user.setPassword(createUsersDTO.password());
+    user.setCpf(createUsersDTO.cpf());
+    user.setCep(createUsersDTO.cep());
 
     return usersRepository.save(user);
   }
